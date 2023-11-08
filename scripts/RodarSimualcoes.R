@@ -1,5 +1,5 @@
 FinalClass_list <- list() # Armazenar as classificações finais
-nSims <- 10 # numero de simulações
+nSims <- 300 # numero de simulações
 Results_list <- list() # Armazenar os resultados
 
 
