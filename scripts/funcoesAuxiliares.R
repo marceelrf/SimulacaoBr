@@ -44,6 +44,20 @@ TimeCampeao <- function(x) {
     filter(Pos == 1) %>% 
     pull(Time)
 }
+
+CheckarTimeCampeao_prop <- function(x, time){
+  tmp <- x %>% 
+    filter(Pos == 1) %>% 
+    mutate(Camp = case_when(
+      Time == time ~ "Sim",
+      TRUE ~ "Não"
+      )
+    ) %>% 
+    pull(Camp)
+  
+  
+  ifelse("Sim" %in% tmp, "Sim", "Não")
+}
 # Apply -------------------------------------------------------------------
 
 
@@ -73,6 +87,6 @@ map(FinalClass_list,Campeao_corte) %>%
   table()
 
 
-map(FinalClass_list, ~CheckarTimeRebaixado(.x,"Corinthians")) %>% 
+map(FinalClass_list, ~CheckarTimeRebaixado(.x,"Bahia")) %>% 
   unlist() %>% 
-  table()
+  table()/300
