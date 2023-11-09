@@ -1,6 +1,7 @@
 library(tidyverse)
 library(crayon)
 library(glue)
+library(gt)
 
 # Tabela 07/11/2023 -------------------------------------------------------
 

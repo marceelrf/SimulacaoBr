@@ -12,6 +12,20 @@ Campeao_corte <- function(x) {
     pull(P)
 }
 
+Lib_corte <- function(x) {
+  
+  x %>% 
+    filter(Pos == 7) %>% 
+    pull(P)
+}
+
+Lib_corte_dir <- function(x) {
+  
+  x %>% 
+    filter(Pos == 5) %>% 
+    pull(P)
+}
+
 CheckarTimeRebaixado <- function(x, time){
   tmp <- x %>% 
     filter(Pos >= 17) %>% 
@@ -87,6 +101,21 @@ map(FinalClass_list,Campeao_corte) %>%
   table()
 
 
-map(FinalClass_list, ~CheckarTimeRebaixado(.x,"Bahia")) %>% 
-  unlist() %>% 
-  table()/300
+Tema_tmp <- map(FinalClass_list, ~CheckarTimeRebaixado(.x,"Bahia")) %>% 
+  unlist()
+
+
+fn_Reb <- function(team){
+  Time_tmp <- map(FinalClass_list, ~CheckarTimeRebaixado(.x,team)) %>% 
+    unlist()
+  
+  sum(Time_tmp == "Sim")/length(Time_tmp)
+}
+
+fn_Camp <- function(team){
+  Time_tmp <- map(FinalClass_list, ~CheckarTimeCampeao(.x,team)) %>% 
+    unlist()
+  
+  sum(Time_tmp == "Sim")/length(Time_tmp)
+}
+
