@@ -36,7 +36,7 @@ publish <- Tab_pub %>%
     ungroup() %>%
     mutate(Logo = Time_logo) %>% 
     gt() %>%
-    tab_header(title = md(glue("**Brasileirão Séria A : {Sys.Date()}**")),
+    tab_header(title = md(glue("**Brasileirão Séria A : {Date_sim}**")),
              subtitle = "@marceelrf") %>%
     fmt_percent(columns = c(Rebaixado,Campeao)) %>%
     gtExtras::gt_img_rows(columns = Logo, height = 20) %>%
@@ -53,8 +53,8 @@ publish <- Tab_pub %>%
       locations = cells_source_notes())
 )
 gt::gtsave(publish,
-           filename = glue("Output/Sim_{nSims}_{Sys.Date()}.png"), vwidth = 1500)
+           filename = glue("Output/Sim_{nSims}_{Date_sim}.png"), vwidth = 1500)
 gt::gtsave(publish,
-           filename = glue("Output/Sim_{nSims}_{Sys.Date()}.html"))
+           filename = glue("Output/Sim_{nSims}_{Date_sim}.html"))
 gt::gtsave(publish,
-           filename = glue("Output/Sim_{nSims}_{Sys.Date()}.pdf"))
+           filename = glue("Output/Sim_{nSims}_{Date_sim}.pdf"))

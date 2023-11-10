@@ -75,7 +75,7 @@ plot_Sum <- Objetivos_summary %>%
                       v_align = "middle"),
     locations = cells_column_labels()
     ) %>% 
-  tab_header(title = md(glue("**Pontos necessários** : {Sys.Date()}")),
+  tab_header(title = md(glue("**Pontos necessários** : {Date_sim}")),
              subtitle = "@marceelrf") %>% 
   tab_source_note(md(glue("*Número de simulações: {nSims}*"))) %>% 
   tab_style(
