@@ -72,6 +72,21 @@ CheckarTimeCampeao_prop <- function(x, time){
   
   ifelse("Sim" %in% tmp, "Sim", "Não")
 }
+
+
+Time_libertadores <- function(x, time) {
+  tmp <- x %>% 
+    filter(Pos <= 4) %>% 
+    mutate(Camp = case_when(
+      Time == time ~ "Sim",
+      TRUE ~ "Não"
+    )
+    ) %>% 
+    pull(Camp)
+  
+  
+  ifelse("Sim" %in% tmp, "Sim", "Não")
+}
 # Apply -------------------------------------------------------------------
 
 
@@ -119,3 +134,6 @@ fn_Camp <- function(team){
   sum(Time_tmp == "Sim")/length(Time_tmp)
 }
 
+map(FinalClass_list,~Time_libertadores(.x,"Botafogo")) %>% 
+  unlist() %>% 
+  table()

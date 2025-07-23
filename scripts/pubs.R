@@ -21,13 +21,29 @@
                  "https://ssl.gstatic.com/onebox/media/sports/logos/hHwT8LwRmYCAGxQ-STLxYA_96x96.png")
 )
 
+fn_Camp <-function(team){
+  Time_tmp <- map(FinalClass_list, ~CheckarTimeCampeao(.x,team)) %>% 
+    unlist()
+  
+  sum(Time_tmp == "Sim")/length(Time_tmp)
+}
+
+fn_Reb <- function(team){
+  Time_tmp <- map(FinalClass_list, ~CheckarTimeRebaixado(.x,team)) %>% 
+    unlist()
+  
+  sum(Time_tmp == "Sim")/length(Time_tmp)
+}
+
 
 Tab_pub <- tibble(Time = unique(rodadas$Casa)) %>% 
   arrange(Time) %>% 
+  mutate(Logo = Time_logo) %>% 
   group_by(Time) %>% 
-  mutate(Logo = Time_logo,
+  mutate(
          Rebaixado = fn_Reb(Time),
-         Campeao = fn_Camp(Time))
+         Campeao = fn_Camp(Time)
+         )
 
 (
 publish <- Tab_pub %>%
@@ -40,6 +56,7 @@ publish <- Tab_pub %>%
              subtitle = "@marceelrf") %>%
     fmt_percent(columns = c(Rebaixado,Campeao)) %>%
     gtExtras::gt_img_rows(columns = Logo, height = 20) %>%
+    gt::cols_move(Time,Logo) %>% 
     cols_label(Logo = "",
              Rebaixado= md("**Rebaixamento (%)**"),
              Campeao = md("**Campeão (%)**"),

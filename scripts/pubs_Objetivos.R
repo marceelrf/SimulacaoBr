@@ -87,7 +87,8 @@ plot_Sum <- Objetivos_summary %>%
 )
 
 gt::gtsave(plot_Sum,
-           filename = glue("Output/Resumos_{nSims}_{Sys.Date()}.png"), vwidth = 1500)
+           filename = glue("Output/Resumos_{nSims}_{Date_sim}.png"),
+           vwidth = 1500)
 
 
 # Objetivos_summary %>% 

@@ -3,15 +3,9 @@ nSims <- 1000
 Results_list <- list() # Armazenar os resultados
 FinalClass_list <- list() # Armazenar as classificações finais
 
-tab_init <- read_csv2(file = "data/tabelaBr20231109.csv",
-                      locale  = readr::locale(
-                        encoding = "latin1"
-                      ))
+tab_init <- readxl::read_xlsx(path = "data2024/classificacao2024.xlsx")
 
-rodadas <- read_csv2(file = "data/rodadasFinais20231109.csv",
-                     locale  = readr::locale(
-                       encoding = "latin1"
-                     ))
+rodadas <- readxl::read_xlsx(path = "data2024/rodadas.xlsx")
 
 
 # Simulação ---------------------------------------------------------------
@@ -37,8 +31,13 @@ for (s in 1:nSims) {
                         time_casa = time_casa,
                         time_fora = time_fora)
       
-      res_tmp <- glue("Rodada {i}: {time_casa} {resultado_partida[1]} x {resultado_partida[2]} {time_fora}")
-      tab_res <- rbind(tab_res,res_tmp)
+      res_df <- data.frame(Rodada = i,
+                           Casa = time_casa,
+                           Casa_gols = resultado_partida[1],
+                           Fora = time_fora,
+                           Fora_gols = resultado_partida[2])
+      #res_tmp <- glue("Rodada {i}: {time_casa} {resultado_partida[1]} x {resultado_partida[2]} {time_fora}")
+      tab_res <- rbind(tab_res,res_df)
       # cat(red$bold$underline(time_casa) %+% " X " %+% red$bold$underline(time_fora))
       # cat("\n")
       # cat("----\n")
